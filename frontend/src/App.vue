@@ -13,6 +13,9 @@ import { RouterLink, RouterView } from "vue-router";
         <RouterLink to="/" class="text-decoration-none text-light mx-3"
           >Home</RouterLink
         >
+        <RouterLink to="/dashboard" class="text-decoration-none text-light mx-3"
+          >Dashboard</RouterLink
+        >
         <RouterLink to="/login" class="text-decoration-none text-light mx-3"
           >Login</RouterLink
         >

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import axiosInstance from "@/axios";
+import { AxiosError } from "axios";
 import { reactive } from "vue";
 
 interface RegisterForm {
@@ -16,18 +17,30 @@ const form = reactive<RegisterForm>({
   password_confirmation: "",
 });
 
+const errors = reactive({
+  name: [],
+  email: [],
+  password: [],
+});
+
 const register = async () => {
   try {
     // Ensure CSRF cookie for Laravel Sanctum
     await axiosInstance.get("/sanctum/csrf-cookie", {
       baseURL: "http://localhost:8000",
     });
-
+    errors.name = [];
+    errors.email = [];
+    errors.password = [];
     // Send registration request
-    const response = await axiosInstance.post("/register", form);
-    console.log("Registration successful:", response.data);
-  } catch (error: any) {
-    console.error("Error during registration:", error?.response?.data || error);
+    await axiosInstance.post("/register", form);
+  } catch (e: any) {
+    if (e instanceof AxiosError && e.response?.status === 422) {
+      errors.name = e.response.data.errors.name || [];
+      errors.email = e.response.data.errors.email || [];
+      errors.password = e.response.data.errors.password || [];
+      console.log(errors); // Debugging - Check if errors are correctly populated
+    }
   }
 };
 </script>
@@ -46,7 +59,17 @@ const register = async () => {
             class="form-control"
             id="name"
             placeholder="Enter your full name"
+            :class="{ 'is-invalid': errors.name.length > 0 }"
           />
+          <template v-if="errors.name && errors.name.length">
+            <div
+              v-for="error in errors.name"
+              :key="error"
+              class="invalid-feedback d-block"
+            >
+              {{ error }}
+            </div>
+          </template>
         </div>
 
         <!-- Email -->
@@ -58,7 +81,17 @@ const register = async () => {
             class="form-control"
             id="email"
             placeholder="Enter your email"
+            :class="{ 'is-invalid': errors.email.length > 0 }"
           />
+          <template v-if="errors.email && errors.email.length">
+            <div
+              v-for="error in errors.email"
+              :key="error"
+              class="invalid-feedback d-block"
+            >
+              {{ error }}
+            </div>
+          </template>
         </div>
 
         <!-- Password -->
@@ -70,7 +103,17 @@ const register = async () => {
             class="form-control"
             id="password"
             placeholder="Enter your password"
+            :class="{ 'is-invalid': errors.password.length > 0 }"
           />
+          <template v-if="errors.password && errors.password.length">
+            <div
+              v-for="error in errors.password"
+              :key="error"
+              class="invalid-feedback d-block"
+            >
+              {{ error }}
+            </div>
+          </template>
         </div>
 
         <!-- Confirm Password -->
