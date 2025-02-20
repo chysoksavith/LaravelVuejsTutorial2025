@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/store/auth";
+import { onMounted } from "vue";
 
 const auth = useAuthStore();
-auth.getUser();
+onMounted(() => {
+  if (!auth.isLoggedIn) auth.getUser();
+});
 </script>
 
 <template>
