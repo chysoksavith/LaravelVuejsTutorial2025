@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = auth()->user()->posts()->orderBy('created_at', 'desc')->paginate(1);
-        return response()->json($posts);
+        return PostResource::collection($posts);
     }
 
     /**
@@ -45,9 +46,10 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return new PostResource($post);
     }
 
     /**

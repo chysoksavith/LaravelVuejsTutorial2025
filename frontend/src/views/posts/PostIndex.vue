@@ -2,15 +2,25 @@
 import axiosInstance from "@/lib/axios";
 import { onMounted, ref } from "vue";
 import { Bootstrap5Pagination } from "laravel-vue-pagination"; // If you use this package
+import { RouterLink } from "vue-router";
 type Post = {
   id: number;
   title: string;
   body: string;
   is_published: boolean;
+  createdAt: string;
 };
-
+type LaravelData = {
+  data: Post[];
+  links: any;
+  meta: any;
+};
 const posts = ref<Post[]>([]); // Store posts data
-const laravelData = ref<any>({}); // To hold pagination data
+const laravelData = ref<LaravelData>({
+  data: [],
+  links: {},
+  meta: {},
+}); // To hold pagination data
 
 // Function to fetch results with pagination
 const getResults = async (page = 1) => {
@@ -43,6 +53,7 @@ onMounted(async () => {
             <th>Title</th>
             <th>Body</th>
             <th>Is published</th>
+            <th>Created At</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -53,17 +64,15 @@ onMounted(async () => {
               <td>{{ post.title }}</td>
               <td>{{ post.body }}</td>
               <td>{{ post.is_published ? "Yes" : "No" }}</td>
+              <td>{{ post.createdAt }}</td>
               <td>
                 <!-- Action buttons like Edit and Delete (optional) -->
-                <!-- <button
+                <RouterLink
+                  :to="{ name: 'PostView', params: { id: post.id } }"
                   class="btn btn-warning btn-sm me-2"
-                  @click="editProduct"
+                  >View</RouterLink
                 >
-                  Edit
-                </button>
-                <button class="btn btn-danger btn-sm" @click="deleteProduct">
-                  Delete
-                </button> -->
+                <button class="btn btn-danger btn-sm">Delete</button>
               </td>
             </tr>
           </template>
