@@ -1,4 +1,4 @@
-import axiosInstance from "@/axios";
+import axiosInstance from "@/lib/axios";
 import router from "@/router";
 import type { LoginForm, RegisterForm, User } from "@/types";
 import type { FormKitNode } from "@formkit/core";
@@ -56,6 +56,11 @@ export const useAuthStore = defineStore(
         console.error(error);
       }
     };
+    // clean state
+    const cleanState = () => {
+      user.value = null;
+      isLoggedIn.value = false;
+    };
     // logout
     const logout = async () => {
       try {
@@ -75,6 +80,7 @@ export const useAuthStore = defineStore(
       login,
       getUser,
       logout,
+      cleanState,
     };
   },
   {

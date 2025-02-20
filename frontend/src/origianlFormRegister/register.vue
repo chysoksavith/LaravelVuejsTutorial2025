@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import axiosInstance from "@/axios";
+import axiosInstance from "@/lib/axios";
 import type { RegisterForm } from "@/types/index";
 import router from "@/router";
 import { AxiosError } from "axios";
