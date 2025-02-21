@@ -12,6 +12,10 @@ import CategoryIndex from "@/views/category/CategoryIndex.vue";
 import CategoryCreate from "@/views/category/CategoryCreate.vue";
 import CategoryView from "@/views/category/CategoryView.vue";
 import CategoryEdit from "@/views/category/CategoryEdit.vue";
+import ProductView from "@/product/ProductView.vue";
+import ProductIndex from "@/product/ProductIndex.vue";
+import ProductCreate from "@/product/ProductCreate.vue";
+import ProductEdit from "@/product/ProductEdit.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -92,6 +96,35 @@ const router = createRouter({
       path: "/dashboard/categories/:id",
       name: "CategoryView",
       component: CategoryView,
+      meta: { requiresAuth: true },
+      props: true,
+    },
+    // product
+    {
+      path: "/dashboard/products",
+      name: "ProductIndex",
+      component: ProductIndex,
+      meta: { requiresAuth: true },
+      props: true,
+    },
+    {
+      path: "/dashboard/products/create",
+      name: "ProductCreate",
+      component: ProductCreate,
+      meta: { requiresAuth: true },
+      props: true,
+    },
+    {
+      path: "/dashboard/products/:id/edit",
+      name: "ProductEdit",
+      component: ProductEdit,
+      meta: { requiresAuth: true },
+      props: true,
+    },
+    {
+      path: "/dashboard/products/:id",
+      name: "ProductView",
+      component: ProductView,
       meta: { requiresAuth: true },
       props: true,
     },

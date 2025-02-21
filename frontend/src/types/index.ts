@@ -33,6 +33,23 @@ export type postForm = {
   title: string;
   body: string;
 };
+export type Product = {
+  id: number;
+  category: { id: number; name: string };
+  name: string;
+  description: string;
+  image: string;
+  price: number;
+  created_at: string;
+};
+
+export type ProductForm = {
+  category_id: number;
+  name: string;
+  description: string;
+  image: File | string; 
+  price: number;
+};
 export interface LaravelResponseCollection<T> {
   data: T[];
   links: {

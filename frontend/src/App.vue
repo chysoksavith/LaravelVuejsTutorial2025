@@ -22,6 +22,11 @@ import { RouterLink, RouterView } from "vue-router";
           >Posts</RouterLink
         >
         <RouterLink
+          to="/dashboard/products"
+          class="text-decoration-none text-light mx-3"
+          >Product</RouterLink
+        >
+        <RouterLink
           to="/dashboard/categories"
           class="text-decoration-none text-light mx-3"
           >Category</RouterLink
