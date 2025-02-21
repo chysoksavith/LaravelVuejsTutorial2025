@@ -8,6 +8,10 @@ import PostIndex from "@/views/posts/PostIndex.vue";
 import PostCreate from "@/views/posts/PostCreate.vue";
 import PostView from "@/views/posts/PostView.vue";
 import PostEdit from "@/views/posts/PostEdit.vue";
+import CategoryIndex from "@/views/category/CategoryIndex.vue";
+import CategoryCreate from "@/views/category/CategoryCreate.vue";
+import CategoryView from "@/views/category/CategoryView.vue";
+import CategoryEdit from "@/views/category/CategoryEdit.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,6 +39,7 @@ const router = createRouter({
       component: Dashboard,
       meta: { requiresAuth: true },
     },
+    // post
     {
       path: "/dashboard/posts",
       name: "PostIndex",
@@ -61,6 +66,36 @@ const router = createRouter({
       meta: { requiresAuth: true },
       props: true,
     },
+    // category
+    {
+      path: "/dashboard/categories",
+      name: "CategoryIndex",
+      component: CategoryIndex,
+      meta: { requiresAuth: true },
+      props: true,
+    },
+    {
+      path: "/dashboard/categories/create",
+      name: "CategoryCreate",
+      component: CategoryCreate,
+      meta: { requiresAuth: true },
+      props: true,
+    },
+    {
+      path: "/dashboard/categories/:id/edit",
+      name: "CategoryEdit",
+      component: CategoryEdit,
+      meta: { requiresAuth: true },
+      props: true,
+    },
+    {
+      path: "/dashboard/categories/:id",
+      name: "CategoryView",
+      component: CategoryView,
+      meta: { requiresAuth: true },
+      props: true,
+    },
+    // route error
     {
       path: "/404",
       name: "404",

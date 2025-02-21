@@ -47,7 +47,7 @@ export const usePostStore = defineStore(
         await router.push("/dashboard/posts");
       } catch (e) {
         if (e instanceof AxiosError && e.response?.status === 422) {
-          node?.setErrors([], e.response?.data.error);
+          node?.setErrors([], e.response?.data.errors);
         }
       }
     };
@@ -57,14 +57,11 @@ export const usePostStore = defineStore(
       node?: FormKitNode
     ) => {
       try {
-        await axiosInstance.put(
-          `/dashboard/posts/${slug}`,
-          payload
-        );
+        await axiosInstance.put(`/dashboard/posts/${slug}`, payload);
         await router.push("/dashboard/posts");
       } catch (e) {
         if (e instanceof AxiosError && e.response?.status === 422) {
-          node?.setErrors([], e.response?.data.error);
+          node?.setErrors([], e.response?.data.errors);
         }
       }
     };

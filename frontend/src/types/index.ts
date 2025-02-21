@@ -21,6 +21,14 @@ export type Post = {
   is_published: boolean;
   createdAt: string;
 };
+export type Category = {
+  id: number;
+  name: string;
+  created_at: string;
+};
+export type categoryForm = {
+  name: string;
+};
 export type postForm = {
   title: string;
   body: string;
