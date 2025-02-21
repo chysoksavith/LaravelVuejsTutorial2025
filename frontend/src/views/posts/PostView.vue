@@ -1,34 +1,24 @@
 <script setup lang="ts">
 import axiosInstance from "@/lib/axios";
+import { usePostStore } from "@/store/post";
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
-type Post = {
-  id: number;
-  title: string;
-  body: string;
-  is_published: boolean;
-  createdAt: string;
-};
+
 const route = useRoute();
-const post = ref<Post | null>(null);
-const getPost = async (id: string | string[]) => {
-  try {
-    const { data } = await axiosInstance.get(`/dashboard/posts/${id}`);
-    post.value = data.data;
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-};
+const postStore = usePostStore();
+
 watch(
-  () => route.params.id,
-  (id) => getPost(id),
+  () => route.params.slug,
+  (slug) => postStore.getPost(String(slug)),
   { immediate: true }
 );
 </script>
 
 <template>
-  <p>{{ post?.id }}</p>
-  <p>{{ post?.title }}</p>
-  <p>{{ post?.body }}</p>
+  <RouterLink :to="{ name: 'PostIndex' }" class="btn btn-primary"
+    >back</RouterLink
+  >
+  <p>{{ postStore.post?.id }}</p>
+  <p>{{ postStore.post?.title }}</p>
+  <p>{{ postStore.post?.body }}</p>
 </template>

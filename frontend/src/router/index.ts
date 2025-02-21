@@ -7,6 +7,7 @@ import { useAuthStore } from "@/store/auth";
 import PostIndex from "@/views/posts/PostIndex.vue";
 import PostCreate from "@/views/posts/PostCreate.vue";
 import PostView from "@/views/posts/PostView.vue";
+import PostEdit from "@/views/posts/PostEdit.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,9 +48,16 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: "/dashboard/posts/:id",
+      path: "/dashboard/posts/:slug",
       name: "PostView",
       component: PostView,
+      meta: { requiresAuth: true },
+      props: true,
+    },
+    {
+      path: "/dashboard/posts/:slug/edit",
+      name: "PostEdit",
+      component: PostEdit,
       meta: { requiresAuth: true },
       props: true,
     },

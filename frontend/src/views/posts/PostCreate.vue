@@ -1,23 +1,7 @@
 <script setup lang="ts">
-import axiosInstance from "@/lib/axios";
-import router from "@/router";
-import type { FormKitNode } from "@formkit/core";
-import { AxiosError } from "axios";
+import { usePostStore } from "@/store/post";
 
-type PostForm = {
-  title: string;
-  body: string;
-};
-const createPost = async (payload: PostForm, node?: FormKitNode) => {
-  try {
-    await axiosInstance.post("/dashboard/posts", payload);
-    router.push("/dashboard/posts");
-  } catch (e) {
-    if (e instanceof AxiosError && e.response?.status === 422) {
-      node?.setErrors([], e.response?.data.errors);
-    }
-  }
-};
+const { createPost } = usePostStore();
 </script>
 
 <template>

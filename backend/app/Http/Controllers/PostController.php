@@ -46,9 +46,9 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($slug)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::where('slug', $slug)->firstOrFail();
         return new PostResource($post);
     }
 
@@ -63,9 +63,16 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $slug)
     {
-        //
+        $post = Post::where('slug', $slug)->firstOrFail();
+        $data = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'body' => ['required', 'string']
+        ]);
+        $dda['slug'] = Str::slug($data['title']);
+        $post->update($data);
+        return new PostResource($post);
     }
 
     /**
