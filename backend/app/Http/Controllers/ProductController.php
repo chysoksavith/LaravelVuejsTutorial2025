@@ -103,8 +103,6 @@ class ProductController extends Controller
 
             return response()->json(['message' => 'Product deleted successfully']);
         } catch (\Exception $e) {
-            // Log the error and return a 500 response
-            Log::error('Error deleting product: ' . $e->getMessage());
             return response()->json(['error' => 'Server error'], 500);
         }
     }

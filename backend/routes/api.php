@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\frontend\PostShowController;
 use App\Http\Controllers\frontend\WelcomeController;
@@ -29,7 +30,7 @@ Route::apiResource('/dashboard/products', ProductController::class)
         'auth:sanctum'
     ])
     ->except(['create', 'edit']);;
-
+Route::apiResource('/dashboard/brands', BrandController::class);
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });

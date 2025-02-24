@@ -13,6 +13,7 @@ export const useProductStore = defineStore("products", () => {
   const product = ref<Product | null>(null);
   const isLoading = ref(false);
 
+  // Fetch products
   const getProducts = async (page: number) => {
     isLoading.value = true;
     try {
@@ -20,17 +21,22 @@ export const useProductStore = defineStore("products", () => {
         `/dashboard/products?page=${page}`
       );
       productCollection.value = data;
-      console.log(data.data);
+      console.log("Fetched Products:", data.data);
     } catch (error) {
       console.error(error);
     } finally {
       isLoading.value = false;
     }
   };
-  // create
-  const createProduct = async (payload: ProductForm, node?: FormKitNode) => {
+
+  // Create product with image upload
+  const createProduct = async (formData: FormData, node?: FormKitNode) => {
     try {
-      await axiosInstance.post("/dashboard/products", payload);
+      await axiosInstance.post("/dashboard/products", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       await router.push("/dashboard/products");
     } catch (e) {
       if (e instanceof AxiosError && e.response?.status === 422) {
@@ -38,6 +44,7 @@ export const useProductStore = defineStore("products", () => {
       }
     }
   };
+
   return {
     productCollection,
     product,
