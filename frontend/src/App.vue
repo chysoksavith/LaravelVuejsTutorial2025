@@ -27,6 +27,11 @@ import { RouterLink, RouterView } from "vue-router";
           >Product</RouterLink
         >
         <RouterLink
+          to="/dashboard/brands"
+          class="text-decoration-none text-light mx-3"
+          >Brand</RouterLink
+        >
+        <RouterLink
           to="/dashboard/categories"
           class="text-decoration-none text-light mx-3"
           >Category</RouterLink
