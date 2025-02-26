@@ -47,7 +47,7 @@ export type ProductForm = {
   category_id: number;
   name: string;
   description: string;
-  image: File | string; 
+  image: File | string;
   price: number;
 };
 export interface LaravelResponseCollection<T> {
@@ -68,4 +68,8 @@ export interface LaravelResponseCollection<T> {
   last_page_url: string | null;
   next_page_url: string | null;
   prev_page_url: string | null;
+}
+export interface BrandFormData {
+  name: string;
+  image: File | null;
 }

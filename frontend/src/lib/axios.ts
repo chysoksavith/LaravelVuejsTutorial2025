@@ -7,6 +7,9 @@ const axiosInstance = axios.create({
   baseURL: "http://localhost:8000/api",
   withCredentials: true,
   withXSRFToken: true,
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
 });
 axiosInstance.interceptors.response.use(
   (response) => {

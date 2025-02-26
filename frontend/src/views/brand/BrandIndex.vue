@@ -14,10 +14,11 @@ onMounted(() => {
   <div class="container mt-4">
     <!-- CRUD Table -->
     <div class="d-flex justify-content-between align-items-center">
-      <h2 class="text-center">Categories</h2>
-      <!-- <RouterLink :to="{ name: 'CategoryCreate' }" class="btn btn-primary">
-        Create
-      </RouterLink> -->
+      <h2 class="text-center">Brands</h2>
+
+      <RouterLink :to="{ name: 'BrandCreate' }" class="btn btn-primary"
+        >Create</RouterLink
+      >
     </div>
 
     <div class="table-responsive">
@@ -73,7 +74,7 @@ onMounted(() => {
           <!-- If no categories available -->
           <template v-else>
             <tr>
-              <td colspan="4" class="text-center">No categories available</td>
+              <td colspan="4" class="text-center">No brands available</td>
             </tr>
           </template>
         </tbody>
