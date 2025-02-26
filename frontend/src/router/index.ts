@@ -18,6 +18,8 @@ import ProductCreate from "@/product/ProductCreate.vue";
 import ProductEdit from "@/product/ProductEdit.vue";
 import BrandIndex from "@/views/brand/BrandIndex.vue";
 import BrandCreate from "@/views/brand/BrandCreate.vue";
+import BrandEdit from "@/views/brand/BrandEdit.vue";
+import BrandView from "@/views/brand/BrandView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -141,6 +143,16 @@ const router = createRouter({
       path: "/dashboard/brands/create",
       name: "BrandCreate",
       component: BrandCreate,
+    },
+    {
+      path: "/dashboard/brands/:id",
+      name: "BrandView",
+      component: BrandView,
+    },
+    {
+      path: "/dashboard/brands/:id/edit",
+      name: "BrandEdit",
+      component: BrandEdit,
     },
     // route error
     {

@@ -4,7 +4,14 @@ import { useCategoryStore } from "@/store/category";
 import { onMounted } from "vue";
 
 const brandsStore = useBrandStore();
-
+const deleteBrand = async (id: number) => {
+  try {
+    await brandsStore.deleteBrand(id);
+    router.push("/dashboard/brands");
+  } catch (error) {
+    console.error("Error deleting brand:", error);
+  }
+};
 onMounted(() => {
   brandsStore.fetchBrands();
 });
@@ -47,26 +54,26 @@ onMounted(() => {
               </td>
               <th>{{ brand.created_at }}</th>
               <td>
-                <!-- <RouterLink
-                  :to="{ name: 'CategoryView', params: { id: category.id } }"
+                <RouterLink
+                  :to="{ name: 'BrandView', params: { id: brand.id } }"
                   class="btn btn-info btn-sm"
-                  aria-label="View Category"
+                  aria-label="View Brand"
                 >
                   View
                 </RouterLink>
                 <RouterLink
-                  :to="{ name: 'CategoryEdit', params: { id: category.id } }"
+                  :to="{ name: 'BrandEdit', params: { id: brand.id } }"
                   class="btn btn-info btn-sm"
-                  aria-label="View Category"
+                  aria-label="View Brand"
                 >
                   Edit
                 </RouterLink>
                 <button
+                  @click="deleteBrand(brand.id)"
                   class="btn btn-danger btn-sm"
-                  @click="categoryStore.deleteCategory(category.id)"
                 >
                   Delete
-                </button> -->
+                </button>
               </td>
             </tr>
           </template>
